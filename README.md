@@ -82,7 +82,7 @@ and use one of the two configurations:
 <walkthrough
             is-round=true
             walkthrough-type="transparency"
-            focus-element-id="focusItem"
+            focus-element-selector="#focusItem"
             icon="single_tap"
             main-caption="This is some text"
             is-active="isActive"
@@ -118,7 +118,7 @@ and use one of the two configurations:
 
 - `is-active` (mandatory) - Any walkthrough type. Bound element controls display the directive. Set 'true' to bound element in order to display.
 - `walkthrough-type` (mandatory) - Any walkthrough type. Specifies what type of walkthrough to display. Currently supported are 'transparency' and 'tip' types
-- `focus-element-id` (optional) - Any walkthrough type. ID of DOM element we want to give focus to, without it all screen will be grayed out
+- `focus-element-selector` (optional) - Any walkthrough type. Selector of DOM element we want to give focus to, without it all screen will be grayed out
 - `is-round` (optional) - Any walkthrough type. Set to 'true' if you want the focused area to be round, otherwise it will be square set to the size of the DOM element
 - `has-glow` (optional) - Any walkthrough type. Set to 'true' if you want the focused area to have a glow around it
 - `icon` (optional) - Any walkthrough type. If set to any of the predefined values ("single_tap", "double_tap", "swipe_down", "swipe_left", "swipe_right", "swipe_up"), in such case the image will be bound to focus element (if exists). if giving any other icon then is not bound to focus element

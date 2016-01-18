@@ -31,7 +31,7 @@ angular.module('ng-walkthrough', [])
                 walkthroughType: '@',
                 isActive: '=',
                 icon: '@',
-                focusElementId: '@',
+                focusElementSelector: '@',
                 mainCaption: '@',
                 forceCaptionLocation: '@',
                 isRound: '=',
@@ -121,7 +121,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 var resizeHandler = function(){
-                    scope.setFocusOnElement(attrs.focusElementId);
+                    scope.setFocusOnElement(attrs.focusElementSelector);
                 };
 
                 var unbindClickEvents = function(){
@@ -332,8 +332,8 @@ angular.module('ng-walkthrough', [])
                 };
 
                 //Attempts to highlight the given element ID and set Icon to it if exists, if not use default - right under text
-                var setElementLocations = function(walkthroughIconWanted, focusElementId, iconPaddingLeft, iconPaddingTop){
-                    var focusElement = document.querySelector('#' + focusElementId);
+                var setElementLocations = function(walkthroughIconWanted, focusElementSelector, iconPaddingLeft, iconPaddingTop){
+                    var focusElement = document.querySelector(focusElementSelector);
                     var angularElement = angular.element(focusElement);
                     if (angularElement.length > 0) {
 
@@ -368,8 +368,8 @@ angular.module('ng-walkthrough', [])
                             setTipIconPadding(iconPaddingLeft, iconPaddingTop);
                         }
                     } else {
-                        if (focusElementId) {
-                            $log.info('Unable to find element requested to be focused: #' + focusElementId);
+                        if (focusElementSelector) {
+                            $log.info('Unable to find element requested to be focused: ' + focusElementSelector);
                         } else{
                             //if tip mode with icon that we want to set padding to, set it
                             if (scope.walkthroughType== "tip" &&
@@ -381,8 +381,8 @@ angular.module('ng-walkthrough', [])
                     }
                 };
 
-                scope.setFocusOnElement = function(focusElementId){
-                    setElementLocations(scope.icon, focusElementId, scope.iconPaddingLeft, scope.iconPaddingTop);
+                scope.setFocusOnElement = function(focusElementSelector){
+                    setElementLocations(scope.icon, focusElementSelector, scope.iconPaddingLeft, scope.iconPaddingTop);
                 };
 
                 var holeElements = element[0].querySelectorAll(DOM_WALKTHROUGH_HOLE_CLASS);
@@ -419,16 +419,16 @@ angular.module('ng-walkthrough', [])
                         }
                         if (!scope.hasTransclude){
                             try {
-                                if (attrs.focusElementId) {
-                                    scope.setFocusOnElement(attrs.focusElementId);
+                                if (attrs.focusElementSelector) {
+                                    scope.setFocusOnElement(attrs.focusElementSelector);
                                 }
                             } catch(e){
-                                $log.warn('failed to focus on element prior to timeout: ' + attrs.focusElementId);
+                                $log.warn('failed to focus on element prior to timeout: ' + attrs.focusElementSelector);
                             }
                             //Must timeout to make sure we have final correct coordinates after screen totally load
-                            if (attrs.focusElementId) {
+                            if (attrs.focusElementSelector) {
                                 $timeout(function () {
-                                    scope.setFocusOnElement(attrs.focusElementId);
+                                    scope.setFocusOnElement(attrs.focusElementSelector);
                                 }, 300);
                             }
                         }
