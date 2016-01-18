@@ -164,7 +164,6 @@ angular.module('ng-walkthrough', [])
 
                     //Event to close the walkthrough
                     scope.closeWalkthrough = function(){
-                        scope.isActive = false;
                         scope.onWalkthroughHide();
                     };
 
