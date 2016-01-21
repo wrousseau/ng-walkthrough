@@ -91,7 +91,6 @@ angular.module('ng-walkthrough', [])
                     if (typeof attrs.focusElementHeight !== 'undefined'){
                         focusElementStyle.height = Number(attrs.focusElementHeight);
                     }
-										console.log(focusElementStyle);
                     return focusElementStyle;
                 }
 
@@ -239,6 +238,7 @@ angular.module('ng-walkthrough', [])
 
                 //Sets the walkthrough focus hole on given params with padding
                 var setFocus = function(left, top, width, height, style){
+									  console.log(style);
                     width = style.width || width + style.left + style.right;
                     height = style.height || height + style.bottom + style.top;
                     var holeDimensions = plop
