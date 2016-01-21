@@ -63,22 +63,23 @@ angular.module('ng-walkthrough', [])
                         bottom: PADDING_HOLE
                     };
                     if (typeof attrs.focusElementPadding !== 'undefined'){
-                        focusElementPadding.left = attrs.focusElementPadding;
-                        focusElementPadding.right = attrs.focusElementPadding;
-                        focusElementPadding.top = attrs.focusElementPadding;
-                        focusElementPadding.bottom = attrs.focusElementPadding;
+                        padding = Number(attrs.focusElementPadding);
+                        focusElementPadding.left = padding;
+                        focusElementPadding.right = padding;
+                        focusElementPadding.top = padding;
+                        focusElementPadding.bottom = padding;
                     }
                     if (typeof attrs.focusElementPaddingLeft !== 'undefined'){
-                        focusElementPadding.left = attrs.focusElementPaddingLeft;
+                        focusElementPadding.left = Number(attrs.focusElementPaddingLeft);
                     }
                     if (typeof attrs.focusElementPaddingRight !== 'undefined'){
-                        focusElementPadding.right = attrs.focusElementPaddingRight;
+                        focusElementPadding.right = Number(attrs.focusElementPaddingRight);
                     }
                     if (typeof attrs.focusElementPaddingTop !== 'undefined'){
-                        focusElementPadding.top = attrs.focusElementPaddingTop;
+                        focusElementPadding.top = Number(attrs.focusElementPaddingTop);
                     }
                     if (typeof attrs.focusElementPaddingBottom !== 'undefined'){
-                        focusElementPadding.bottom = attrs.focusElementPaddingBottom;
+                        focusElementPadding.bottom = Number(attrs.focusElementPaddingBottom);
                     }
                     return focusElementPadding;
                 }
