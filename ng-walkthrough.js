@@ -32,11 +32,13 @@ angular.module('ng-walkthrough', [])
                 isActive: '=',
                 icon: '@',
                 focusElementSelector: '@',
-                focusElementSelectorPadding: '@',
-                focusElementSelectorPaddingLeft: '@',
-                focusElementSelectorPaddingRight: '@',
-                focusElementSelectorPaddingTop: '@',
-                focusElementSelectorPaddingBottom: '@',
+                focusElementPadding: '@',
+                focusElementPaddingLeft: '@',
+                focusElementPaddingRight: '@',
+                focusElementPaddingTop: '@',
+                focusElementPaddingBottom: '@',
+                focusElementWidth: '@',
+                focusElementHeight: '@',
                 mainCaption: '@',
                 forceCaptionLocation: '@',
                 isRound: '=',
@@ -55,33 +57,41 @@ angular.module('ng-walkthrough', [])
                 onWalkthroughHide: '&'
             },
             link: function (scope, element, attrs, ctrl, $transclude) {
-                var getFocusElementPadding = function(){
-                    var focusElementPadding = {
+                var getFocusElementStyle= function(){
+                    var focusElementStyle = {
                         left: PADDING_HOLE,
                         right: PADDING_HOLE,
                         top: PADDING_HOLE,
-                        bottom: PADDING_HOLE
+                        bottom: PADDING_HOLE,
+                        width: null,
+                        height: null
                     };
                     if (typeof attrs.focusElementPadding !== 'undefined'){
                         padding = Number(attrs.focusElementPadding);
-                        focusElementPadding.left = padding;
-                        focusElementPadding.right = padding;
-                        focusElementPadding.top = padding;
-                        focusElementPadding.bottom = padding;
+                        focusElementStyle.left = padding;
+                        focusElementStyle.right = padding;
+                        focusElementStyle.top = padding;
+                        focusElementStyle.bottom = padding;
                     }
                     if (typeof attrs.focusElementPaddingLeft !== 'undefined'){
-                        focusElementPadding.left = Number(attrs.focusElementPaddingLeft);
+                        focusElementStyle.left = Number(attrs.focusElementPaddingLeft);
                     }
                     if (typeof attrs.focusElementPaddingRight !== 'undefined'){
-                        focusElementPadding.right = Number(attrs.focusElementPaddingRight);
+                        focusElementStyle.right = Number(attrs.focusElementPaddingRight);
                     }
                     if (typeof attrs.focusElementPaddingTop !== 'undefined'){
-                        focusElementPadding.top = Number(attrs.focusElementPaddingTop);
+                        focusElementStyle.top = Number(attrs.focusElementPaddingTop);
                     }
                     if (typeof attrs.focusElementPaddingBottom !== 'undefined'){
-                        focusElementPadding.bottom = Number(attrs.focusElementPaddingBottom);
+                        focusElementStyle.bottom = Number(attrs.focusElementPaddingBottom);
                     }
-                    return focusElementPadding;
+                    if (typeof attrs.focusElementWidth !== 'undefined'){
+                        focusElementStyle.width = Number(attrs.focusElementWidth);
+                    }
+                    if (typeof attrs.focusElementHeight !== 'undefined'){
+                        focusElementStyle.height = Number(attrs.focusElementHeight);
+                    }
+                    return focusElementStyle;
                 }
 
                 var getIcon = function(icon){
@@ -155,7 +165,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 var resizeHandler = function(){
-                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
+                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementStyle());
                 };
 
                 var unbindClickEvents = function(){
@@ -227,12 +237,14 @@ angular.module('ng-walkthrough', [])
                 };
 
                 //Sets the walkthrough focus hole on given params with padding
-                var setFocus = function(left, top, width, height, padding){
-                    var holeDimensions =
-                        "left:" + (left - padding.left) + "px;" +
-                        "width:" + (width + padding.left + padding.right) + "px;" +
-                        "top:" + (top - padding.top) + "px;" +
-                        "height:" + (height + padding.bottom + padding.top) + "px;";
+                var setFocus = function(left, top, width, height, style){
+                    var width = style.width || width + style.left + style.right;
+                    var height = style.height || height + style.bottom + style.top;
+                    var holeDimensions = plop
+                        "left:" + (left - style.left) + "px;" +
+                        "width:" + width + "px;" +
+                        "top:" + (top - style.top) + "px;" +
+                        "height:" + height + "px;";
                     scope.walkthroughHoleElements.attr('style', holeDimensions);
                 };
 
@@ -365,7 +377,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 //Attempts to highlight the given element ID and set Icon to it if exists, if not use default - right under text
-                var setElementLocations = function(walkthroughIconWanted, focusElementSelector, focusElementPadding, iconPaddingLeft, iconPaddingTop){
+                var setElementLocations = function(walkthroughIconWanted, focusElementSelector, focusElementStyle, iconPaddingLeft, iconPaddingTop){
                     var focusElement = document.querySelector(focusElementSelector);
                     var angularElement = angular.element(focusElement);
                     if (angularElement.length > 0) {
@@ -376,7 +388,7 @@ angular.module('ng-walkthrough', [])
                         var left = offsetCoordinates.left;
                         var top = offsetCoordinates.top;
 
-                        setFocus(left, top, width, height, focusElementPadding);
+                        setFocus(left, top, width, height, focusElementStyle);
                         var paddingLeft = parseFloat(iconPaddingLeft);
                         var paddingTop = parseFloat(iconPaddingTop);
                         if (!paddingLeft) { paddingLeft = 0;}
@@ -414,8 +426,8 @@ angular.module('ng-walkthrough', [])
                     }
                 };
 
-                scope.setFocusOnElement = function(focusElementSelector, focusElementPadding){
-                    setElementLocations(scope.icon, focusElementSelector, focusElementPadding, scope.iconPaddingLeft, scope.iconPaddingTop);
+                scope.setFocusOnElement = function(focusElementSelector, focusElementStyle){
+                    setElementLocations(scope.icon, focusElementSelector, focusElementStyle, scope.iconPaddingLeft, scope.iconPaddingTop);
                 };
 
                 var holeElements = element[0].querySelectorAll(DOM_WALKTHROUGH_HOLE_CLASS);
@@ -453,7 +465,7 @@ angular.module('ng-walkthrough', [])
                         if (!scope.hasTransclude){
                             try {
                                 if (attrs.focusElementSelector) {
-                                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
+                                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementStyle());
                                 }
                             } catch(e){
                                 $log.warn('failed to focus on element prior to timeout: ' + attrs.focusElementSelector);
@@ -461,7 +473,7 @@ angular.module('ng-walkthrough', [])
                             //Must timeout to make sure we have final correct coordinates after screen totally load
                             if (attrs.focusElementSelector) {
                                 $timeout(function () {
-                                  scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
+                                  scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementStyle());
                                 }, 300);
                             }
                         }
