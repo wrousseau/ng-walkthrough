@@ -122,7 +122,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 var resizeHandler = function(){
-                    scope.setFocusOnElement(attrs.focusElementSelector);
+                    scope.setFocusOnElement(attrs.focusElementSelector, attrs.focusElementSelectorPadding);
                 };
 
                 var unbindClickEvents = function(){
@@ -431,7 +431,7 @@ angular.module('ng-walkthrough', [])
                             //Must timeout to make sure we have final correct coordinates after screen totally load
                             if (attrs.focusElementSelector) {
                                 $timeout(function () {
-                                    scope.setFocusOnElement(attrs.focusElementSelector);
+                                    scope.setFocusOnElement(attrs.focusElementSelector, attrs.focusElementSelectorPadding);
                                 }, 300);
                             }
                         }
