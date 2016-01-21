@@ -200,10 +200,10 @@ angular.module('ng-walkthrough', [])
 										}
 										padding = 25;
                     var holeDimensions =
-                        "left:" + (left - PADDING_HOLE) + "px;" +
-                        "top:" + (top - PADDING_HOLE) + "px;" +
-                        "width:" + (width + (2 * PADDING_HOLE)) + "px;" +
-                        "height:" + (height + (2 * PADDING_HOLE)) + "px;";
+                        "left:" + (left - padding) + "px;" +
+                        "top:" + (top - padding) + "px;" +
+                        "width:" + (width + (2 * padding)) + "px;" +
+                        "height:" + (height + (2 * padding)) + "px;";
                     scope.walkthroughHoleElements.attr('style', holeDimensions);
                 };
 
