@@ -80,6 +80,7 @@ angular.module('ng-walkthrough', [])
                     if (typeof attrs.focusElementPaddingBottom !== 'undefined'){
                         focusElementPadding.bottom = attrs.focusElementPaddingBottom;
                     }
+										console.log(focusElementPadding);
                     return focusElementPadding;
                 }
 
