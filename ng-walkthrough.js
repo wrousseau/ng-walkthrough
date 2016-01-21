@@ -32,7 +32,11 @@ angular.module('ng-walkthrough', [])
                 isActive: '=',
                 icon: '@',
                 focusElementSelector: '@',
-								focusElementSelectorPadding: '@',
+                focusElementSelectorPadding: '@',
+                focusElementSelectorPaddingLeft: '@',
+                focusElementSelectorPaddingRight: '@',
+                focusElementSelectorPaddingTop: '@',
+                focusElementSelectorPaddingBottom: '@',
                 mainCaption: '@',
                 forceCaptionLocation: '@',
                 isRound: '=',
@@ -51,6 +55,15 @@ angular.module('ng-walkthrough', [])
                 onWalkthroughHide: '&'
             },
             link: function (scope, element, attrs, ctrl, $transclude) {
+                var selectOnThree = function (x0, x1, x2){
+                  return typeof x0 !== 'undefined'? x0: typeof x1 !== 'undefined'? x1: x2;
+                }
+                var focusElementPadding =
+                  left: selectOnThree(attrs.focusElementPaddingLeft, attrs.focusElementPadding, PADDING_HOLE),
+                  right: selectOnThree(attrs.focusElementPaddingRight, attrs.focusElementPadding, PADDING_HOLE),
+                  top: selectOnThree(attrs.focusElementPaddingTop, attrs.focusElementPadding, PADDING_HOLE),
+                  bottom: selectOnThree(attrs.focusElementPaddingBottom, attrs.focusElementPadding, PADDING_HOLE)
+
                 var getIcon = function(icon){
                     var retval = null;
                     switch (icon){
@@ -122,7 +135,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 var resizeHandler = function(){
-                    scope.setFocusOnElement(attrs.focusElementSelector, attrs.focusElementSelectorPadding);
+                    scope.setFocusOnElement(attrs.focusElementSelector, focusElementPadding);
                 };
 
                 var unbindClickEvents = function(){
@@ -195,14 +208,11 @@ angular.module('ng-walkthrough', [])
 
                 //Sets the walkthrough focus hole on given params with padding
                 var setFocus = function(left, top, width, height, padding){
-									  if (typeof padding === 'undefined'){
-											padding = PADDING_HOLE;
-										}
                     var holeDimensions =
-                        "left:" + (left - padding) + "px;" +
-                        "top:" + (top - padding) + "px;" +
-                        "width:" + (width + (2 * padding)) + "px;" +
-                        "height:" + (height + (2 * padding)) + "px;";
+                        "left:" + (left - padding.left) + "px;" +
+                        "width:" + (width + padding.left + padding.right) + "px;" +
+                        "top:" + (top - padding.top) + "px;" +
+                        "height:" + (height + padding.bottom + padding.top) + "px;";
                     scope.walkthroughHoleElements.attr('style', holeDimensions);
                 };
 
@@ -335,7 +345,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 //Attempts to highlight the given element ID and set Icon to it if exists, if not use default - right under text
-                var setElementLocations = function(walkthroughIconWanted, focusElementSelector, focusElementSelectorPadding, iconPaddingLeft, iconPaddingTop){
+                var setElementLocations = function(walkthroughIconWanted, focusElementSelector, focusElementPadding, iconPaddingLeft, iconPaddingTop){
                     var focusElement = document.querySelector(focusElementSelector);
                     var angularElement = angular.element(focusElement);
                     if (angularElement.length > 0) {
@@ -346,7 +356,7 @@ angular.module('ng-walkthrough', [])
                         var left = offsetCoordinates.left;
                         var top = offsetCoordinates.top;
 
-                        setFocus(left, top, width, height, focusElementSelectorPadding);
+                        setFocus(left, top, width, height, focusElementPadding);
                         var paddingLeft = parseFloat(iconPaddingLeft);
                         var paddingTop = parseFloat(iconPaddingTop);
                         if (!paddingLeft) { paddingLeft = 0;}
@@ -384,8 +394,8 @@ angular.module('ng-walkthrough', [])
                     }
                 };
 
-                scope.setFocusOnElement = function(focusElementSelector, focusElementSelectorPadding){
-                    setElementLocations(scope.icon, focusElementSelector, focusElementSelectorPadding, scope.iconPaddingLeft, scope.iconPaddingTop);
+                scope.setFocusOnElement = function(focusElementSelector, focusElementPadding){
+                    setElementLocations(scope.icon, focusElementSelector, focusElementPadding, scope.iconPaddingLeft, scope.iconPaddingTop);
                 };
 
                 var holeElements = element[0].querySelectorAll(DOM_WALKTHROUGH_HOLE_CLASS);
@@ -423,7 +433,7 @@ angular.module('ng-walkthrough', [])
                         if (!scope.hasTransclude){
                             try {
                                 if (attrs.focusElementSelector) {
-                                    scope.setFocusOnElement(attrs.focusElementSelector, attrs.focusElementSelectorPadding);
+                                    scope.setFocusOnElement(attrs.focusElementSelector, focusElementPadding);
                                 }
                             } catch(e){
                                 $log.warn('failed to focus on element prior to timeout: ' + attrs.focusElementSelector);
@@ -431,7 +441,7 @@ angular.module('ng-walkthrough', [])
                             //Must timeout to make sure we have final correct coordinates after screen totally load
                             if (attrs.focusElementSelector) {
                                 $timeout(function () {
-                                    scope.setFocusOnElement(attrs.focusElementSelector, attrs.focusElementSelectorPadding);
+                                  scope.setFocusOnElement(attrs.focusElementSelector, focusElementPadding);
                                 }, 300);
                             }
                         }
