@@ -55,11 +55,12 @@ angular.module('ng-walkthrough', [])
                 onWalkthroughHide: '&'
             },
             link: function (scope, element, attrs, ctrl, $transclude) {
-                var focusElementPadding =
+                var focusElementPadding = {
                   left: PADDING_HOLE,
                   right: PADDING_HOLE,
                   top: PADDING_HOLE,
                   bottom: PADDING_HOLE
+                };
                 if (typeof attrs.focusElementPadding !== 'undefined'){
                   focusElementPadding.left = attrs.focusElementPadding;
                   focusElementPadding.right = attrs.focusElementPadding;
