@@ -241,7 +241,7 @@ angular.module('ng-walkthrough', [])
 									  console.log(style);
                     width = style.width || width + style.left + style.right;
                     height = style.height || height + style.bottom + style.top;
-                    var holeDimensions = plop
+                    var holeDimensions =
                         "left:" + (left - style.left) + "px;" +
                         "width:" + width + "px;" +
                         "top:" + (top - style.top) + "px;" +
