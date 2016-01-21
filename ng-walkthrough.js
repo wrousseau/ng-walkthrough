@@ -198,6 +198,7 @@ angular.module('ng-walkthrough', [])
 									  if (typeof padding === 'undefined'){
 											padding = PADDING_HOLE;
 										}
+										padding = 25;
                     var holeDimensions =
                         "left:" + (left - PADDING_HOLE) + "px;" +
                         "top:" + (top - PADDING_HOLE) + "px;" +
