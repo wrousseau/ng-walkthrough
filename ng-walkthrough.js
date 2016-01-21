@@ -55,14 +55,29 @@ angular.module('ng-walkthrough', [])
                 onWalkthroughHide: '&'
             },
             link: function (scope, element, attrs, ctrl, $transclude) {
-                var selectOnThree = function (x0, x1, x2){
-                  return typeof x0 !== 'undefined'? x0: typeof x1 !== 'undefined'? x1: x2;
-                }
                 var focusElementPadding =
-                  left: selectOnThree(attrs.focusElementPaddingLeft, attrs.focusElementPadding, PADDING_HOLE),
-                  right: selectOnThree(attrs.focusElementPaddingRight, attrs.focusElementPadding, PADDING_HOLE),
-                  top: selectOnThree(attrs.focusElementPaddingTop, attrs.focusElementPadding, PADDING_HOLE),
-                  bottom: selectOnThree(attrs.focusElementPaddingBottom, attrs.focusElementPadding, PADDING_HOLE)
+                  left: PADDING_HOLE,
+                  right: PADDING_HOLE,
+                  top: PADDING_HOLE,
+                  bottom: PADDING_HOLE
+                if (typeof attrs.focusElementPadding !== 'undefined'){
+                  focusElementPadding.left = attrs.focusElementPadding;
+                  focusElementPadding.right = attrs.focusElementPadding;
+                  focusElementPadding.top = attrs.focusElementPadding;
+                  focusElementPadding.bottom = attrs.focusElementPadding;
+                }
+                if (typeof attrs.focusElementPaddingLeft !== 'undefined'){
+                  focusElementPadding.left = attrs.focusElementPaddingLeft;
+                }
+                if (typeof attrs.focusElementPaddingRight !== 'undefined'){
+                  focusElementPadding.right = attrs.focusElementPaddingRight;
+                }
+                if (typeof attrs.focusElementPaddingTop !== 'undefined'){
+                  focusElementPadding.top = attrs.focusElementPaddingTop;
+                }
+                if (typeof attrs.focusElementPaddingBottom !== 'undefined'){
+                  focusElementPadding.bottom = attrs.focusElementPaddingBottom;
+                }
 
                 var getIcon = function(icon){
                     var retval = null;
