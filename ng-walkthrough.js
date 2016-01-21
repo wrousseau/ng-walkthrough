@@ -15,7 +15,7 @@ angular.module('ng-walkthrough', [])
         //var DOM_WALKTHROUGH_BACKGROUND_CLASS = "walkthrough-background";
         var DOM_WALKTHROUGH_DONE_BUTTON_CLASS = "walkthrough-done-button";
         var BUTTON_CAPTION_DONE = "Got it!";
-        var PADDING_HOLE = 5;
+        var PADDING_HOLE = 25;
         var PADDING_ARROW_START = 5;
         var gestureIcons = ["single_tap", "double_tap", "swipe_down", "swipe_left", "swipe_right", "swipe_up"];
         var hasIonic = false;
