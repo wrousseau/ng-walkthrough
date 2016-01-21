@@ -124,6 +124,8 @@ and use one of the two configurations:
 - `focus-element-padding-right` (optional) - Any walkthrough type. Add right padding to the focus element
 - `focus-element-padding-top` (optional) - Any walkthrough type. Add top padding to the focus element
 - `focus-element-padding-bot` (optional) - Any walkthrough type. Add bottom padding to the focus element
+- `focus-element-width` (optional) - Any walkthrough type. Set with of the focus area
+- `focus-element-height` (optional) - Any walkthrough type. Set height of the focus area
 - `is-round` (optional) - Any walkthrough type. Set to 'true' if you want the focused area to be round, otherwise it will be square set to the size of the DOM element
 - `has-glow` (optional) - Any walkthrough type. Set to 'true' if you want the focused area to have a glow around it
 - `icon` (optional) - Any walkthrough type. If set to any of the predefined values ("single_tap", "double_tap", "swipe_down", "swipe_left", "swipe_right", "swipe_up"), in such case the image will be bound to focus element (if exists). if giving any other icon then is not bound to focus element
