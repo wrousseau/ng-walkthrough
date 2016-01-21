@@ -55,7 +55,7 @@ angular.module('ng-walkthrough', [])
                 onWalkthroughHide: '&'
             },
             link: function (scope, element, attrs, ctrl, $transclude) {
-                var makeFocusElementPadding = function(){
+                var getFocusElementPadding = function(){
                     var focusElementPadding = {
                         left: PADDING_HOLE,
                         right: PADDING_HOLE,
@@ -154,7 +154,7 @@ angular.module('ng-walkthrough', [])
                 };
 
                 var resizeHandler = function(){
-                    scope.setFocusOnElement(attrs.focusElementSelector, makeFocusElementPadding());
+                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
                 };
 
                 var unbindClickEvents = function(){
@@ -452,7 +452,7 @@ angular.module('ng-walkthrough', [])
                         if (!scope.hasTransclude){
                             try {
                                 if (attrs.focusElementSelector) {
-                                    scope.setFocusOnElement(attrs.focusElementSelector, makeFocusElementPadding());
+                                    scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
                                 }
                             } catch(e){
                                 $log.warn('failed to focus on element prior to timeout: ' + attrs.focusElementSelector);
@@ -460,7 +460,7 @@ angular.module('ng-walkthrough', [])
                             //Must timeout to make sure we have final correct coordinates after screen totally load
                             if (attrs.focusElementSelector) {
                                 $timeout(function () {
-                                  scope.setFocusOnElement(attrs.focusElementSelector, makeFocusElementPadding());
+                                  scope.setFocusOnElement(attrs.focusElementSelector, getFocusElementPadding());
                                 }, 300);
                             }
                         }
