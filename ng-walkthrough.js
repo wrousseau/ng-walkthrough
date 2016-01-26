@@ -414,7 +414,9 @@ angular.module('ng-walkthrough', [])
                         }
                         //check if text and focusElement overlaps, and move text accordingly
                         if (isItemOnText(left, top, left + width, top + height)){
-                            moveTextToBottom(top+height);
+                            scope.$applyAsync(function () {
+                                moveTextToBottom(top+height);
+                            });
                         }
                     } else {
                         if (focusElementSelector) {
