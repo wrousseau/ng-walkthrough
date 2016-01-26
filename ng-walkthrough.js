@@ -412,6 +412,10 @@ angular.module('ng-walkthrough', [])
                             (iconPaddingLeft || iconPaddingTop)){
                             setTipIconPadding(iconPaddingLeft, iconPaddingTop);
                         }
+                        //check if text and focusElement overlaps, and move text accordingly
+                        if (isItemOnText(left, top, left + width, top + height)){
+                            moveTextToBottom(top+height);
+                        }
                     } else {
                         if (focusElementSelector) {
                             $log.info('Unable to find element requested to be focused: ' + focusElementSelector);
