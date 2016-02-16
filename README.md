@@ -130,7 +130,8 @@ and use one of the two configurations:
 - `has-glow` (optional) - Any walkthrough type. Set to 'true' if you want the focused area to have a glow around it
 - `icon` (optional) - Any walkthrough type. If set to any of the predefined values ("single_tap", "double_tap", "swipe_down", "swipe_left", "swipe_right", "swipe_up"), in such case the image will be bound to focus element (if exists). if giving any other icon then is not bound to focus element
 - `main-caption` (optional) - Any walkthrough type. This is the text that will be displayed in the walk-through. Text can be formatted
-- `use-button` (optional) - Any walkthrough type. set to 'true' you want a button displayed that most be clicked in order to close walkthrough, otherwise clicking anywhere while walkthrough displayed will close it
+- `use-button` (optional) - Any walkthrough type. set to 'true' you want a button displayed that must be clicked in order to close walkthrough, otherwise clicking anywhere while walkthrough displayed will close it
+- `button-caption` (optional) - Any walkthrough type. This is the text in the button that must be clicked to close the walkthrough (assuming use-button has been activated)
 - `icon-padding-left` (optional) - Any walkthrough type. Add padding to the icon from the left in percentage
 - `icon-padding-top` (optional) - Any walkthrough type. Add padding to the icon from the top in pixels
 - `tip-icon-location` (optional) - For tip walkthrough. In case there is an overlap between the tip text box and the tip icon you can define here which is on top. Either "FRONT" or "BACK"
