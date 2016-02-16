@@ -44,7 +44,7 @@ angular.module('ng-walkthrough', [])
                 isRound: '=',
                 hasGlow: '=',
                 useButton: '=',
-                buttonCaption: '=',
+                buttonCaption: '@',
                 iconPaddingLeft: '@',
                 iconPaddingTop: '@',
                 /**
@@ -234,7 +234,7 @@ angular.module('ng-walkthrough', [])
 
                     scope.closeIcon = iconsUrl + "Hotspot-close.png";
                     scope.walkthroughIcon = getIcon(scope.icon);
-                    scope.buttonCaption = buttonCaption || BUTTON_CAPTION_DONE;
+                    scope.buttonCaption = scope.buttonCaption || BUTTON_CAPTION_DONE;
                 };
 
                 //Sets the walkthrough focus hole on given params with padding
