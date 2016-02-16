@@ -44,7 +44,7 @@ angular.module('ng-walkthrough', [])
                 isRound: '=',
                 hasGlow: '=',
                 useButton: '=',
-                buttonCaption: '=',
+                buttonCaption: '@',
                 iconPaddingLeft: '@',
                 iconPaddingTop: '@',
                 /**
